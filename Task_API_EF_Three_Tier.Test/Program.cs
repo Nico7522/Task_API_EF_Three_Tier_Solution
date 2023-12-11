@@ -14,12 +14,15 @@ Console.WriteLine("cc");
 
 using (DataContext dc = new DataContext())
 {
-    dc.People.Add(new PersonEntity()
+    dc.Tasks.Add(new TaskEntity()
     {
-        FirstName = "ddefzfezf",
-        LastName = "dsqd",
         
+        Title = "Nettoyer la maison",
+        Description = "Nettoyer la cuisine, le salon et la salle de bain"
     });
 
-    dc.SaveChanges();
+    int EntriesNumber = dc.SaveChanges();
+
+    if (EntriesNumber > 0)
+        Console.WriteLine("OK");
 }

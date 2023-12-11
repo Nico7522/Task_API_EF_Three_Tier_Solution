@@ -13,9 +13,9 @@ namespace Task_API_EF_Three_Tier.DAL.Domain
     {
         private string _connectionString = "Data Source=DESKTOP-IFNFMI9;Initial Catalog=Task_EF_Three_Tier;Integrated Security=True;Connect Timeout=60;Encrypt=False;";
 
-        public DbSet<TaskEntity> Tasks { get; set; }
-        public DbSet<PersonEntity> People { get; set; }
-        public DbSet<TaskPersonEntity> TaskPerson { get; set; }
+        public DbSet<TaskEntity>? Tasks { get; set; }
+        public DbSet<PersonEntity>? People { get; set; }
+        public DbSet<TaskPersonEntity>? TaskPerson { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_connectionString);
