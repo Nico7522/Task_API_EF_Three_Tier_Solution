@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Task_API_EF_Three_Tier.BLL\Task_API_EF_Three_Tier.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>

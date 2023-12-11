@@ -8,7 +8,7 @@ namespace Task_API_EF_Three_Tier.DAL.Entities
 {
     public class PersonEntity
     {
-#nullable disable
+        #nullable disable
         public int PersonId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

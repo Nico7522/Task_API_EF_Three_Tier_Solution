@@ -7,4 +7,19 @@
 //{
 //    var list = dc.
 //}
+using Task_API_EF_Three_Tier.DAL.Domain;
+using Task_API_EF_Three_Tier.DAL.Entities;
+
 Console.WriteLine("cc");
+
+using (DataContext dc = new DataContext())
+{
+    dc.People.Add(new PersonEntity()
+    {
+        FirstName = "ddefzfezf",
+        LastName = "dsqd",
+        
+    });
+
+    dc.SaveChanges();
+}
