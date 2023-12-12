@@ -14,7 +14,10 @@ namespace Task_API_EF_Three_Tier.DAL.Services
         private readonly DataContext _dc = new DataContext();
         public int Create(TaskEntity entity)
         {
-            throw new NotImplementedException();
+            _dc.Add(entity);
+            _dc.SaveChanges();
+            int id = entity.TaskId;
+            return id;
         }
 
         public bool Delete(int id)

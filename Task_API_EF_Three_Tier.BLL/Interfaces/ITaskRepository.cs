@@ -11,5 +11,7 @@ namespace Task_API_EF_Three_Tier.BLL.Interfaces
     {
         IEnumerable<TaskEntity> GetAll();
         TaskEntity GetById(int id);
+
+        int Create(TaskEntity entity);
     }
 }

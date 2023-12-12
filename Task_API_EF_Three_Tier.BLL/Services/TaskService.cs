@@ -18,6 +18,12 @@ namespace Task_API_EF_Three_Tier.BLL.Services
             _taskRepository = taskRepository;
         }
 
+        public int Create(TaskEntity entity)
+        {
+           int id = _taskRepository.Create(entity);
+            return id;
+        }
+
         public IEnumerable<TaskEntity> GetAll()
         {
             IEnumerable<TaskEntity>? tasks = _taskRepository.GetAll();
