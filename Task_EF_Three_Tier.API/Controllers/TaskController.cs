@@ -41,7 +41,7 @@ namespace Task_EF_Three_Tier.API.Controllers
 
            int id = _taskRepository.Create(form.ToTaskEntity());
 
-            if (id <0 ) return BadRequest();
+            if (id < 0 ) return BadRequest();
 
             return Created($"https://localhost:7238/api/Task/{id}", form);
         }
