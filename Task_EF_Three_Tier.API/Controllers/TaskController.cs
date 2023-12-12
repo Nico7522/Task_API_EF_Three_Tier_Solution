@@ -25,5 +25,14 @@ namespace Task_EF_Three_Tier.API.Controllers
 
             return Ok(tasks);
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<TaskDTO> GetById(int id)
+        {
+            TaskDTO? task = _taskRepository.GetById(id)?.ToTaskDTO();
+            if(task is null) return BadRequest();
+
+            return Ok(task);
+        }
     }
 }

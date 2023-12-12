@@ -28,7 +28,10 @@ namespace Task_API_EF_Three_Tier.BLL.Services
 
         public TaskEntity GetById(int id)
         {
-            throw new NotImplementedException();
+            TaskEntity task = _taskRepository.GetById(id);
+            if (task is null) return null;
+
+            return task;
         }
     }
 }
