@@ -9,20 +9,27 @@
 //}
 using Task_API_EF_Three_Tier.DAL.Domain;
 using Task_API_EF_Three_Tier.DAL.Entities;
+using Task_API_EF_Three_Tier.DAL.Interfaces;
+using Task_API_EF_Three_Tier.DAL.Services;
 
 Console.WriteLine("cc");
 
-using (DataContext dc = new DataContext())
-{
-    dc.Tasks.Add(new TaskEntity()
-    {
-        
-        Title = "Nettoyer la maison",
-        Description = "Nettoyer la cuisine, le salon et la salle de bain"
-    });
+ITaskRepository _taskRepository = new TaskRepository();
+#region GetAll Tasks DAL
 
-    int EntriesNumber = dc.SaveChanges();
+//var list =  _taskRepository.GetAll();
 
-    if (EntriesNumber > 0)
-        Console.WriteLine("OK");
-}
+//foreach (var task in list)
+//{
+//    Console.WriteLine(task.Description);
+//}
+#endregion
+
+
+#region GetById Task DAL
+
+//var task =_taskRepository.GetById(1);
+
+//Console.WriteLine(task.Title);
+
+#endregion
