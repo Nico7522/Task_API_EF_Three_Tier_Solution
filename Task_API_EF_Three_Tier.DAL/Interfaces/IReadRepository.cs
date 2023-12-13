@@ -10,7 +10,7 @@ namespace Task_API_EF_Three_Tier.DAL.Interfaces
     {
         Task<IEnumerable<TEntity>> GetAll();
 
-        TEntity GetById(TKey id);
+        Task<TEntity> GetById(TKey id);
 
 
     }

@@ -8,11 +8,11 @@ namespace Task_API_EF_Three_Tier.DAL.Interfaces
 {
     public interface ICrudRepository<TKey, TEntity> : IReadRepository<TKey, TEntity>
     {
-        int Create(TEntity entity);
+        Task<int> Create(TEntity entity);
 
         Task<bool> Update(TKey id, TEntity entity);
 
-        bool Delete(TKey id);
+        Task<bool> Delete(TEntity id);
 
     }
 }

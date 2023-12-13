@@ -18,10 +18,18 @@ namespace Task_API_EF_Three_Tier.BLL.Services
             _taskRepository = taskRepository;
         }
 
-        public int Create(TaskEntity entity)
+        public async Task<int> Create(TaskEntity entity)
         {
-           int id = _taskRepository.Create(entity);
+           int id = await _taskRepository.Create(entity);
             return id;
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            TaskEntity taskToDelete = await _taskRepository.GetById(id);
+            if (taskToDelete is null) return false;
+            bool isDeleted = await _taskRepository.Delete(taskToDelete);
+            return isDeleted;
         }
 
         public async Task<IEnumerable<TaskEntity>> GetAll()
@@ -32,9 +40,9 @@ namespace Task_API_EF_Three_Tier.BLL.Services
             return tasks;
         }
 
-        public TaskEntity GetById(int id)
+        public async Task<TaskEntity> GetById(int id)
         {
-            TaskEntity task = _taskRepository.GetById(id);
+            TaskEntity task = await _taskRepository.GetById(id);
             if (task is null) return null;
 
             return task;

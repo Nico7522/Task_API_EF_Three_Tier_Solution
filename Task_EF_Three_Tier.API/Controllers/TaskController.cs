@@ -28,20 +28,20 @@ namespace Task_EF_Three_Tier.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<TaskDTO> GetById(int id)
+        public async Task<ActionResult<TaskDTO>> GetById(int id)
         {
-            TaskDTO? task = _taskRepository.GetById(id)?.ToTaskDTO();
+            TaskDTO? task = await _taskRepository.GetById(id).ContinueWith(t => t.Result?.ToTaskDTO());
             if (task is null) return BadRequest();
 
             return Ok(task);
         }
 
         [HttpPost]
-        public ActionResult Create(CreateTaskForm form ) {
+        public async Task<ActionResult> Create(CreateTaskForm form) {
 
-           int id = _taskRepository.Create(form.ToTaskEntity());
+           int id = await _taskRepository.Create(form.ToTaskEntity());
 
-            if (id < 0 ) return BadRequest();
+            if (id < 0) return BadRequest();
 
             return Created($"https://localhost:7238/api/Task/{id}", form);
         }
@@ -52,6 +52,13 @@ namespace Task_EF_Three_Tier.API.Controllers
         {
             bool isUpdated = await _taskRepository.Update(id, form.FromUpdateFormToTaskEntity());
             return (isUpdated) ? NoContent() : BadRequest();
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            bool isDeleted = await _taskRepository.Delete(id);
+            return (isDeleted) ? NoContent() : BadRequest();
         }
     }
 }

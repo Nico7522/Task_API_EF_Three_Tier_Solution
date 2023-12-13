@@ -14,17 +14,20 @@ namespace Task_API_EF_Three_Tier.DAL.Services
     public class TaskRepository : ITaskRepository
     {
         private readonly DataContext _dc = new DataContext();
-        public int Create(TaskEntity entity)
+        public async Task<int> Create(TaskEntity entity)
         {
             _dc.Add(entity);
-            _dc.SaveChanges();
+            await _dc.SaveChangesAsync();
             int id = entity.TaskId;
             return id;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(TaskEntity task)
         {
-            throw new NotImplementedException();
+             _dc.Tasks.Remove(task);
+            await _dc.SaveChangesAsync();
+            return true;
+
         }
 
         public async Task<IEnumerable<TaskEntity>> GetAll()
@@ -34,9 +37,9 @@ namespace Task_API_EF_Three_Tier.DAL.Services
             return tasks;
         }
 
-        public TaskEntity GetById(int id)
+        public async Task<TaskEntity> GetById(int id)
         {
-            TaskEntity? task = _dc.Tasks.Find(id);
+            TaskEntity? task = await _dc.Tasks.FindAsync(id);
             return task;
         }
 
