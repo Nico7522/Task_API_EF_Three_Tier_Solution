@@ -39,5 +39,12 @@ namespace Task_API_EF_Three_Tier.BLL.Services
 
             return task;
         }
+
+        public async Task<bool> Update(int id, TaskEntity entity)
+        {
+            Task<bool> isUpdated = _taskRepository.Update(id, entity);
+            bool result = await isUpdated;
+            return result;
+        }
     }
 }

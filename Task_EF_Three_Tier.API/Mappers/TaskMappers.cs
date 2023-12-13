@@ -20,5 +20,14 @@ namespace Task_EF_Three_Tier.API.Mappers
                 Description = form.Description,
             };
         }
+
+        internal static TaskEntity FromUpdateFormToTaskEntity(this UpdateTaskForm form)
+        {
+            return new TaskEntity()
+            {
+                Title = form.Title,
+                Description = form.Description,
+            };
+        }
     }
 }

@@ -45,5 +45,14 @@ namespace Task_EF_Three_Tier.API.Controllers
 
             return Created($"https://localhost:7238/api/Task/{id}", form);
         }
+
+        [HttpPut("{id}")]
+
+        public async Task<ActionResult> Update(int id, UpdateTaskForm form)
+        {
+            Task<bool> isUpdated =  _taskRepository.Update(id, form.FromUpdateFormToTaskEntity());
+
+            return (isUpdated.Result) ? NoContent() : BadRequest();
+        }
     }
 }

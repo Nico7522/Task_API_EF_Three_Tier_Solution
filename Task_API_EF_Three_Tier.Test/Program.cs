@@ -15,6 +15,11 @@ using Task_API_EF_Three_Tier.DAL.Services;
 Console.WriteLine("cc");
 
 ITaskRepository _taskRepository = new TaskRepository();
+TaskEntity task = new TaskEntity()
+{
+    Title = "Faire les courses",
+    Description = "Acheter du pain, des pommes, des éponges, une brosse à dents et de l'eau"
+};
 #region GetAll Tasks DAL
 
 //var list =  _taskRepository.GetAll();
@@ -31,5 +36,24 @@ ITaskRepository _taskRepository = new TaskRepository();
 //var task =_taskRepository.GetById(1);
 
 //Console.WriteLine(task.Title);
+
+#endregion
+
+#region Create Task DAL
+
+//int id = _taskRepository.Create(new TaskEntity()
+//{
+//    Title = "Faire les courses",
+//    Description = "Acheter du pain et des pommes"
+//});
+
+//if (id > 0 ) Console.WriteLine(id);
+
+
+#endregion
+
+#region Update Task DAL
+
+_taskRepository.Update(1, task);
 
 #endregion

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Task_API_EF_Three_Tier.DAL.Domain;
 using Task_API_EF_Three_Tier.DAL.Entities;
 using Task_API_EF_Three_Tier.DAL.Interfaces;
+using Task_API_EF_Three_Tier.DAL.Utils;
 
 namespace Task_API_EF_Three_Tier.DAL.Services
 {
@@ -38,9 +39,16 @@ namespace Task_API_EF_Three_Tier.DAL.Services
             return task;
         }
 
-        public bool Update(int id, TaskEntity entity)
+        public async Task<bool> Update(int id, TaskEntity entity)
         {
-            throw new NotImplementedException();
+            TaskEntity? task = await _dc.Tasks.FindAsync(id);
+            if (task is null) return false;
+
+            Method.UpdateEntity(task, entity, "Title", "Description");
+            int entriesNumber = await _dc.SaveChangesAsync();
+            return (entriesNumber > 0) ? true : false;
+
         }
+     
     }
 }

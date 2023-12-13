@@ -13,5 +13,7 @@ namespace Task_API_EF_Three_Tier.BLL.Interfaces
         TaskEntity GetById(int id);
 
         int Create(TaskEntity entity);
+
+        Task<bool> Update(int id, TaskEntity entity);
     }
 }
