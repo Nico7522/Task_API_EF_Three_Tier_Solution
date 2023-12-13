@@ -1,7 +1,15 @@
 using ITaskRepositoryBLL = Task_API_EF_Three_Tier.BLL.Interfaces.ITaskRepository;
-using Task_API_EF_Three_Tier.BLL.Services;
-using Task_API_EF_Three_Tier.DAL.Interfaces;
-using Task_API_EF_Three_Tier.DAL.Services;
+using IPersonRepositoryBLL = Task_API_EF_Three_Tier.BLL.Interfaces.IPersonRepository;
+using TaskServiceBLL = Task_API_EF_Three_Tier.BLL.Services.TaskService;
+using PersonServiceBLL = Task_API_EF_Three_Tier.BLL.Services.PersonService;
+
+
+using IPersonRepositoryDAL = Task_API_EF_Three_Tier.DAL.Interfaces.IPersonRepository;
+using ITaskRepositoryDAL = Task_API_EF_Three_Tier.DAL.Interfaces.ITaskRepository;
+using TaskServiceDAL = Task_API_EF_Three_Tier.DAL.Services.TaskRepository;
+using PersonServiceDAL = Task_API_EF_Three_Tier.DAL.Services.PersonService;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +20,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<ITaskRepository, TaskRepository>();
-builder.Services.AddScoped<ITaskRepositoryBLL, TaskService>();
+builder.Services.AddScoped<ITaskRepositoryDAL, TaskServiceDAL>();
+builder.Services.AddScoped<ITaskRepositoryBLL, TaskServiceBLL>();
+
+builder.Services.AddScoped<IPersonRepositoryDAL, PersonServiceDAL>();
+builder.Services.AddScoped<IPersonRepositoryBLL, PersonServiceBLL>();
 
 
 var app = builder.Build();
