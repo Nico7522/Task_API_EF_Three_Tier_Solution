@@ -37,9 +37,10 @@ namespace Task_API_EF_Three_Tier.DAL.Services
             return tasks;
         }
 
-        public async Task<TaskEntity> GetById(int id)
+        public async Task<TaskEntity?> GetById(int id)
         {
             TaskEntity? task = await _dc.Tasks.FindAsync(id);
+            if (task is null) return null;
             return task;
         }
 
