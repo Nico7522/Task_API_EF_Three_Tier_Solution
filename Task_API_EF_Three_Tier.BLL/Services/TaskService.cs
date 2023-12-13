@@ -24,9 +24,9 @@ namespace Task_API_EF_Three_Tier.BLL.Services
             return id;
         }
 
-        public IEnumerable<TaskEntity> GetAll()
+        public async Task<IEnumerable<TaskEntity>> GetAll()
         {
-            IEnumerable<TaskEntity>? tasks = _taskRepository.GetAll();
+            IEnumerable<TaskEntity>? tasks = await _taskRepository.GetAll();
             if (tasks is null) return null;
 
             return tasks;

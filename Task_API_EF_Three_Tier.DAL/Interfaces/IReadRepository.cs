@@ -8,7 +8,7 @@ namespace Task_API_EF_Three_Tier.DAL.Interfaces
 {
     public interface IReadRepository<TKey, TEntity>
     {
-        IEnumerable<TEntity> GetAll();
+        Task<IEnumerable<TEntity>> GetAll();
 
         TEntity GetById(TKey id);
 

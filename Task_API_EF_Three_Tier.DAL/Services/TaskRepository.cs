@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,9 +27,9 @@ namespace Task_API_EF_Three_Tier.DAL.Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<TaskEntity> GetAll()
+        public async Task<IEnumerable<TaskEntity>> GetAll()
         {
-            IEnumerable<TaskEntity>? tasks = _dc.Tasks;
+            IEnumerable<TaskEntity>? tasks = await _dc.Tasks.ToListAsync();
 
             return tasks;
         }

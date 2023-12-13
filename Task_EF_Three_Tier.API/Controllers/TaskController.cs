@@ -19,9 +19,9 @@ namespace Task_EF_Three_Tier.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<TaskDTO>> GetAll()
+        public async Task<ActionResult<IEnumerable<TaskDTO>>> GetAll()
         {
-            IEnumerable<TaskDTO> tasks = _taskRepository.GetAll().Select(t => t.ToTaskDTO());
+            IEnumerable<TaskDTO> tasks = await _taskRepository.GetAll().ContinueWith(t => t.Result.Select(t => t.ToTaskDTO()));
             if (!tasks.Any()) return BadRequest();
 
             return Ok(tasks);
@@ -50,9 +50,8 @@ namespace Task_EF_Three_Tier.API.Controllers
 
         public async Task<ActionResult> Update(int id, UpdateTaskForm form)
         {
-            Task<bool> isUpdated =  _taskRepository.Update(id, form.FromUpdateFormToTaskEntity());
-
-            return (isUpdated.Result) ? NoContent() : BadRequest();
+            bool isUpdated = await _taskRepository.Update(id, form.FromUpdateFormToTaskEntity());
+            return (isUpdated) ? NoContent() : BadRequest();
         }
     }
 }
