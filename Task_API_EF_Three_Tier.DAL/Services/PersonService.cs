@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Task_API_EF_Three_Tier.DAL.Domain;
 using Task_API_EF_Three_Tier.DAL.Entities;
 using Task_API_EF_Three_Tier.DAL.Interfaces;
+using Task_API_EF_Three_Tier.DAL.Utils;
 
 namespace Task_API_EF_Three_Tier.DAL.Services
 {
@@ -21,9 +22,11 @@ namespace Task_API_EF_Three_Tier.DAL.Services
             return id;
         }
 
-        public Task<bool> Delete(PersonEntity id)
+        public async Task<bool> Delete(PersonEntity entity)
         {
-            throw new NotImplementedException();
+            _dc.People.Remove(entity);
+            int rows = await _dc.SaveChangesAsync();
+            return rows == 1;
         }
 
         public async Task<IEnumerable<PersonEntity>> GetAll()
@@ -31,14 +34,18 @@ namespace Task_API_EF_Three_Tier.DAL.Services
            return await _dc.People.ToListAsync();
         }
 
-        public Task<PersonEntity?> GetById(int id)
+        public async Task<PersonEntity?> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _dc.People.FindAsync(id);
         }
 
-        public Task<bool> Update(int id, PersonEntity entity)
+        public async Task<bool> Update(PersonEntity oldEntity,PersonEntity entity)
         {
-            throw new NotImplementedException();
+            Method.UpdateEntity(oldEntity, entity, "FirstName", "LastName");
+            int updatedRow = await _dc.SaveChangesAsync();
+            return (updatedRow == 1) ? true : false;
+
+
         }
     }
 }

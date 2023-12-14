@@ -1,21 +1,14 @@
-﻿//// See https://aka.ms/new-console-template for more information
-//using Task_API_EF_Three_Tier.DAL.Domain;
-
-//Console.WriteLine("Hello, World!");
-
-//using (DataContext dc = new DataContext())
-//{
-//    var list = dc.
-//}
-using Task_API_EF_Three_Tier.DAL.Domain;
+﻿using IPersonRepositoryBLL = Task_API_EF_Three_Tier.BLL.Interfaces;
+using PersonServiceBLL = Task_API_EF_Three_Tier.BLL.Services;
+using IPersonRepositoryDAL = Task_API_EF_Three_Tier.DAL.Interfaces;
+using PersonServiceDAL = Task_API_EF_Three_Tier.DAL.Services;
 using Task_API_EF_Three_Tier.DAL.Entities;
-using Task_API_EF_Three_Tier.DAL.Interfaces;
-using Task_API_EF_Three_Tier.DAL.Services;
 
 Console.WriteLine("cc");
 
-ITaskRepository _taskRepository = new TaskRepository();
-IPersonRepository _personRepository = new PersonService();
+IPersonRepositoryDAL.IPersonRepository  _personRepositoryDAL = new PersonServiceDAL.PersonService();
+IPersonRepositoryBLL.IPersonRepository _personRepositoryBLL = new PersonServiceBLL.PersonService(_personRepositoryDAL);
+
 TaskEntity task = new TaskEntity()
 {
     Title = "Faire les courses",
@@ -79,5 +72,27 @@ TaskEntity task = new TaskEntity()
 //{
 //    Console.WriteLine(person.FirstName);
 //}
+
+#endregion
+
+#region GetById Person DAL
+
+//var person = await _personRepository.GetById(2);
+
+//Console.WriteLine(person?.FirstName);
+
+#endregion
+
+#region Update Person DAL
+
+//bool isUpated = await _personRepository.Update(1, new PersonEntity() { FirstName = "Jeanmi", LastName = "Chel" });
+
+//if (isUpated) Console.WriteLine("ok");
+#endregion
+
+#region Delete Person BLL
+//bool isDeleted = await _personRepositoryBLL.Delete(46);
+
+//Console.WriteLine(isDeleted);
 
 #endregion

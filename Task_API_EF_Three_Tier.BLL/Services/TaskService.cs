@@ -26,13 +26,13 @@ namespace Task_API_EF_Three_Tier.BLL.Services
 
         public async Task<bool> Delete(int id)
         {
-            TaskEntity taskToDelete = await _taskRepository.GetById(id);
+            TaskEntity? taskToDelete = await _taskRepository.GetById(id);
             if (taskToDelete is null) return false;
             bool isDeleted = await _taskRepository.Delete(taskToDelete);
             return isDeleted;
         }
 
-        public async Task<IEnumerable<TaskEntity>> GetAll()
+        public async Task<IEnumerable<TaskEntity>?> GetAll()
         {
             IEnumerable<TaskEntity>? tasks = await _taskRepository.GetAll();
             if (tasks is null) return null;
@@ -40,9 +40,9 @@ namespace Task_API_EF_Three_Tier.BLL.Services
             return tasks;
         }
 
-        public async Task<TaskEntity> GetById(int id)
+        public async Task<TaskEntity?> GetById(int id)
         {
-            TaskEntity task = await _taskRepository.GetById(id);
+            TaskEntity? task = await _taskRepository.GetById(id);
             if (task is null) return null;
 
             return task;
@@ -50,9 +50,11 @@ namespace Task_API_EF_Three_Tier.BLL.Services
 
         public async Task<bool> Update(int id, TaskEntity entity)
         {
-            Task<bool> isUpdated = _taskRepository.Update(id, entity);
-            bool result = await isUpdated;
-            return result;
+            TaskEntity? oldTask = await _taskRepository.GetById(id);
+            if (oldTask is null) return false;
+            bool isUpdated = await _taskRepository.Update(oldTask, entity);
+            
+            return isUpdated;
         }
     }
 }

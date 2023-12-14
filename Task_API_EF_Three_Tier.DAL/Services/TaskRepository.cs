@@ -24,9 +24,9 @@ namespace Task_API_EF_Three_Tier.DAL.Services
 
         public async Task<bool> Delete(TaskEntity task)
         {
-             _dc.Tasks.Remove(task);
-            await _dc.SaveChangesAsync();
-            return true;
+            _dc.Tasks.Remove(task);
+            int rows = await _dc.SaveChangesAsync();
+            return rows == 1;
 
         }
 
@@ -44,12 +44,9 @@ namespace Task_API_EF_Three_Tier.DAL.Services
             return task;
         }
 
-        public async Task<bool> Update(int id, TaskEntity entity)
+        public async Task<bool> Update(TaskEntity oldEntity, TaskEntity entity)
         {
-            TaskEntity? task = await _dc.Tasks.FindAsync(id);
-            if (task is null) return false;
-
-            Method.UpdateEntity(task, entity, "Title", "Description");
+            Method.UpdateEntity(oldEntity, entity, "Title", "Description");
             int entriesNumber = await _dc.SaveChangesAsync();
             return (entriesNumber > 0) ? true : false;
 

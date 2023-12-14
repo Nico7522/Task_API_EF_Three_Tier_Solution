@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Task_API_EF_Three_Tier.BLL\Task_API_EF_Three_Tier.BLL.csproj" />
     <ProjectReference Include="..\Task_API_EF_Three_Tier.DAL\Task_API_EF_Three_Tier.DAL.csproj" />
   </ItemGroup>
 

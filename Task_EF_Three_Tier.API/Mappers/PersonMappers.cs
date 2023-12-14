@@ -24,5 +24,14 @@ namespace Task_EF_Three_Tier.API.Mappers
                 LastName = entity.LastName,
             };
         }
+
+        public static PersonEntity ToPersonEntity(this UpdatePersonForm form)
+        {
+            return new PersonEntity()
+            {
+                FirstName = form.FirstName,
+                LastName = form.LastName,
+            };
+        }
     }
 }

@@ -10,6 +10,11 @@ namespace Task_API_EF_Three_Tier.BLL.Interfaces
     public interface IPersonRepository
     {
         Task<IEnumerable<PersonEntity>> GetAll();
+        Task<PersonEntity?> GetById(int id);
         Task<int> Create(PersonEntity entity);
+
+        Task<bool> Update(int id,PersonEntity entity);
+
+        Task<bool> Delete(int id);
     }
 }

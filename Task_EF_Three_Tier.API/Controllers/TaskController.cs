@@ -50,7 +50,7 @@ namespace Task_EF_Three_Tier.API.Controllers
 
         public async Task<ActionResult> Update(int id, UpdateTaskForm form)
         {
-            bool isUpdated = await _taskRepository.Update(id, form.FromUpdateFormToTaskEntity());
+            bool isUpdated = await _taskRepository.Update(id, form.ToTaskEntity());
             return (isUpdated) ? NoContent() : BadRequest();
         }
 

@@ -21,7 +21,7 @@ namespace Task_EF_Three_Tier.API.Mappers
             };
         }
 
-        internal static TaskEntity FromUpdateFormToTaskEntity(this UpdateTaskForm form)
+        internal static TaskEntity ToTaskEntity(this UpdateTaskForm form)
         {
             return new TaskEntity()
             {

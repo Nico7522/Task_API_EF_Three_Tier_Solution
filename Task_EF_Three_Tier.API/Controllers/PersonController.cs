@@ -24,11 +24,34 @@ namespace Task_EF_Three_Tier.API.Controllers
             return await _personRepository.GetAll().ContinueWith(t => t.Result.Select(t => t.ToPersonDTO()));
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PersonDTO>> GetById(int id) {
+
+            PersonDTO? person = await _personRepository.GetById(id).ContinueWith(p => p.Result?.ToPersonDTO());
+
+            return (person is not null) ? Ok(person) : BadRequest();
+        }
+
         [HttpPost]
         public async Task<ActionResult> Create(CreatePersonForm form)
         {
             int id = await _personRepository.Create(form.ToPersonEntity());
             return (id > 0) ? Created($"https://localhost:7238/api/Person/{id}", form) : BadRequest();
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Update(int id, UpdatePersonForm form)
+        {
+           bool isUpdated = await _personRepository.Update(id, form.ToPersonEntity());
+           return (isUpdated) ? NoContent() : BadRequest();
+        }
+
+        [HttpDelete("{id:int}")]
+
+        public async Task<ActionResult> Delete(int id)
+        {
+            bool isDeleted = await _personRepository.Delete(id);
+            return (isDeleted) ? NoContent() : BadRequest();
         }
     }
 }

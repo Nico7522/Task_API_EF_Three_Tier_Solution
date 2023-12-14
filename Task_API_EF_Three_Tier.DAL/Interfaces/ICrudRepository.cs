@@ -10,9 +10,9 @@ namespace Task_API_EF_Three_Tier.DAL.Interfaces
     {
         Task<int> Create(TEntity entity);
 
-        Task<bool> Update(TKey id, TEntity entity);
+        Task<bool> Update(TEntity oldEntity, TEntity entity);
 
-        Task<bool> Delete(TEntity id);
+        Task<bool> Delete(TEntity entity);
 
     }
 }

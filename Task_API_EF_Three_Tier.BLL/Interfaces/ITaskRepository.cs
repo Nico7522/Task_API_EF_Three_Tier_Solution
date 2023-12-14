@@ -9,8 +9,8 @@ namespace Task_API_EF_Three_Tier.BLL.Interfaces
 {
     public interface ITaskRepository
     {
-        Task<IEnumerable<TaskEntity>> GetAll();
-        Task<TaskEntity> GetById(int id);
+        Task<IEnumerable<TaskEntity>?> GetAll();
+        Task<TaskEntity?> GetById(int id);
 
         Task<int> Create(TaskEntity entity);
 
