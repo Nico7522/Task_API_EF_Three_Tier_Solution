@@ -12,6 +12,8 @@ namespace Task_EF_Three_Tier.API.Mappers
             {
                 FirstName = form.FirstName,
                 LastName = form.LastName,
+                Email = form.Email,
+                Password = form.Password,
             };
         }
 

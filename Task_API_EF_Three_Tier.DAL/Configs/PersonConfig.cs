@@ -17,6 +17,8 @@ namespace Task_API_EF_Three_Tier.DAL.Configs
             builder.Property(p => p.PersonId).ValueGeneratedOnAdd();
             builder.Property(p => p.FirstName).HasMaxLength(100).IsRequired();
             builder.Property(p => p.LastName).HasMaxLength(50).IsRequired();
+            builder.Property(p => p.Email).IsRequired();
+            builder.Property(p => p.Password).IsRequired();
         }
     }
 }

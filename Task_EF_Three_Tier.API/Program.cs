@@ -19,7 +19,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1",  new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Task_EF_Three_Tier.API", Version = "v1", });
+    //c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "api.xml"));
 
+
+});
 builder.Services.AddScoped<ITaskRepositoryDAL, TaskServiceDAL>();
 builder.Services.AddScoped<ITaskRepositoryBLL, TaskServiceBLL>();
 
