@@ -27,7 +27,7 @@ namespace Task_EF_Three_Tier.API.Controllers
             return Ok(tasks);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<TaskDTO>> GetById(int id)
         {
             TaskDTO? task = await _taskRepository.GetById(id).ContinueWith(t => t.Result?.ToTaskDTO());
@@ -46,7 +46,7 @@ namespace Task_EF_Three_Tier.API.Controllers
             return Created($"https://localhost:7238/api/Task/{id}", form);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
 
         public async Task<ActionResult> Update(int id, UpdateTaskForm form)
         {

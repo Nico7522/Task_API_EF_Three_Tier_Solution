@@ -24,7 +24,7 @@ namespace Task_EF_Three_Tier.API.Controllers
             return await _personRepository.GetAll().ContinueWith(t => t.Result.Select(t => t.ToPersonDTO()));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<PersonDTO>> GetById(int id) {
 
             PersonDTO? person = await _personRepository.GetById(id).ContinueWith(p => p.Result?.ToPersonDTO());
