@@ -169,4 +169,19 @@ TaskEntity task = new TaskEntity()
 
 #endregion
 
+#region GetByEmail BLL
+
+
+//PersonEntity? p = await _personRepositoryBLL.GetPersonByEmail("votreemail2@gmail.com");
+
+//if (p is not null)
+//{
+//    Console.WriteLine("trouvé");
+//} else
+//{
+//    Console.WriteLine("pas trouvé");
+//}
+
+#endregion
+
 

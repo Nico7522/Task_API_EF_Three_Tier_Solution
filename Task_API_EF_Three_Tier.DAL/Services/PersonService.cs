@@ -51,5 +51,11 @@ namespace Task_API_EF_Three_Tier.DAL.Services
             IEnumerable<PersonEntity> people = await _dc.People.Join(_dc.TaskPerson, p => p.PersonId, tp => tp.PersonId, (p , tp) => new {p , tp}).Where(j => j.tp.TaskId == taskId).Select(j => j.tp.Person).ToListAsync();
             return people;
         }
+
+        public async Task<PersonEntity?> GetPersonByEmail(string email)
+        {
+            PersonEntity? person = await _dc.People.Where(p => p.Email == email).SingleOrDefaultAsync();
+            return person;
+        }
     }
 }

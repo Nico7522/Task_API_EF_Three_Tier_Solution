@@ -24,6 +24,9 @@ namespace Task_API_EF_Three_Tier.BLL.Services
 
         public async Task<int> Create(PersonEntity entity)
         {
+           PersonEntity? person = await _personRepository.GetPersonByEmail(entity.Email);
+           if (person is not null) return 0;
+
            entity.EncodePassword();
            int id = await _personRepository.Create(entity);
            return id;
@@ -66,6 +69,12 @@ namespace Task_API_EF_Three_Tier.BLL.Services
 
             IEnumerable<PersonEntity> people = await _personRepository.GetPersonByTask(taskId);
             return people;
+        }
+
+        public async Task<PersonEntity?> GetPersonByEmail(string email)
+        {
+            PersonEntity? person = await _personRepository.GetPersonByEmail(email);
+            return person;
         }
     }
 }
