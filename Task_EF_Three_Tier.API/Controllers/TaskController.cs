@@ -72,7 +72,7 @@ namespace Task_EF_Three_Tier.API.Controllers
             return (people.Count() > 0) ? Ok(people) : NoContent();
         }
 
-        [HttpPatch("{id}/status")]
+        [HttpPatch("{id:int}/status")]
 
         public async Task<ActionResult> ChangeStatus(int id)
         {
