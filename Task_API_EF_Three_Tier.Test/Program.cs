@@ -4,11 +4,19 @@ using IPersonRepositoryDAL = Task_API_EF_Three_Tier.DAL.Interfaces;
 using PersonServiceDAL = Task_API_EF_Three_Tier.DAL.Services;
 using Task_API_EF_Three_Tier.DAL.Entities;
 using Task_API_EF_Three_Tier.DAL.Domain;
+using ITaskRepositoryBLL = Task_API_EF_Three_Tier.BLL.Interfaces;
+using TaskServiceBLL = Task_API_EF_Three_Tier.BLL.Services;
+using TaskServiceDAL = Task_API_EF_Three_Tier.DAL.Services;
+
+using ITaskRepositoryDAL = Task_API_EF_Three_Tier.DAL.Interfaces;
 
 Console.WriteLine("cc");
 
+
 IPersonRepositoryDAL.IPersonRepository  _personRepositoryDAL = new PersonServiceDAL.PersonService();
-IPersonRepositoryBLL.IPersonRepository _personRepositoryBLL = new PersonServiceBLL.PersonService(_personRepositoryDAL);
+ITaskRepositoryDAL.ITaskRepository _taskRepositoryDAL = new TaskServiceDAL.TaskRepository();
+ITaskRepositoryBLL.ITaskRepository _taskRepositoryBLL = new TaskServiceBLL.TaskService(_taskRepositoryDAL, _personRepositoryDAL);
+IPersonRepositoryBLL.IPersonRepository _personRepositoryBLL = new PersonServiceBLL.PersonService(_personRepositoryDAL, _taskRepositoryDAL);
 
 TaskEntity task = new TaskEntity()
 {
@@ -107,4 +115,18 @@ TaskEntity task = new TaskEntity()
 //    Console.WriteLine(person.FirstName + " " + person.LastName);
 //}
 
+#endregion
+
+#region GetTaskByPerson BLL
+
+//IEnumerable<TaskEntity>? tasks = await _taskRepositoryBLL.GetTaskByPerson(1);
+
+//if (tasks is not null)
+//{
+//    foreach (var taskEntity in tasks)
+//    {
+//        Console.WriteLine(taskEntity.Description);
+//    }
+
+//}
 #endregion

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Task_API_EF_Three_Tier.BLL.Interfaces;
+using Task_API_EF_Three_Tier.DAL.Entities;
 using Task_EF_Three_Tier.API.Mappers;
 using Task_EF_Three_Tier.API.Models.DTO;
 using Task_EF_Three_Tier.API.Models.Forms;
@@ -12,10 +13,11 @@ namespace Task_EF_Three_Tier.API.Controllers
     public class PersonController : ControllerBase
     {
         private readonly IPersonRepository _personRepository;
-
-        public PersonController(IPersonRepository personRepository)
+        private readonly ITaskRepository _taskRepository;
+        public PersonController(IPersonRepository personRepository, ITaskRepository taskRepository)
         {
             _personRepository = personRepository;
+            _taskRepository = taskRepository;
         }
 
         [HttpGet]
@@ -53,5 +55,17 @@ namespace Task_EF_Three_Tier.API.Controllers
             bool isDeleted = await _personRepository.Delete(id);
             return (isDeleted) ? NoContent() : BadRequest();
         }
+
+        [HttpGet("{personId:int}/task")]
+        public async Task<ActionResult<IEnumerable<TaskDTO>>> GetTaskByPerson(int personId)
+        {
+
+            IEnumerable<TaskDTO>? tasks = await _taskRepository.GetTaskByPerson(personId).ContinueWith(p => p.Result?.Select(p => p.ToTaskDTO()));
+            if (tasks is null) return BadRequest();
+
+            return (tasks.Count() > 0) ? Ok(tasks) : NoContent();
+        }
+
+
     }
 }

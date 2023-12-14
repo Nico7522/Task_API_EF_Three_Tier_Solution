@@ -17,5 +17,6 @@ namespace Task_API_EF_Three_Tier.BLL.Interfaces
         Task<bool> Update(int id, TaskEntity entity);
 
         Task<bool> Delete(int id);
+        Task<IEnumerable<TaskEntity>?> GetTaskByPerson(int personId);
     }
 }

@@ -51,6 +51,13 @@ namespace Task_API_EF_Three_Tier.DAL.Services
             return (entriesNumber > 0) ? true : false;
 
         }
-     
+
+        public async Task<IEnumerable<TaskEntity>> GetTaskByPerson(int personId)
+        {
+           IEnumerable<TaskEntity> tasks = await _dc.Tasks.Join(_dc.TaskPerson, t => t.TaskId, tp => tp.TaskId, (t, tp) => new { t, tp }).Where(j => j.tp.PersonId == personId).Select(j => j.tp.Task).ToListAsync();
+           return tasks;
+        }
+
+
     }
 }

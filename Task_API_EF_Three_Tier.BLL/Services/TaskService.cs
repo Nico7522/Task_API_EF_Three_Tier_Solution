@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using ITaskRepositoryBLL = Task_API_EF_Three_Tier.BLL.Interfaces.ITaskRepository;
 using Task_API_EF_Three_Tier.DAL.Entities;
 using ITaskRepositoryDAL = Task_API_EF_Three_Tier.DAL.Interfaces.ITaskRepository;
+using Task_API_EF_Three_Tier.DAL.Interfaces;
 
 namespace Task_API_EF_Three_Tier.BLL.Services
 {
     public class TaskService : ITaskRepositoryBLL
     {
         private readonly ITaskRepositoryDAL _taskRepository;
+        private readonly IPersonRepository _personRepository;
 
-        public TaskService(ITaskRepositoryDAL taskRepository)
+        public TaskService(ITaskRepositoryDAL taskRepository, IPersonRepository personRepository)
         {
             _taskRepository = taskRepository;
+            _personRepository = personRepository;
         }
 
         public async Task<int> Create(TaskEntity entity)
@@ -56,5 +59,15 @@ namespace Task_API_EF_Three_Tier.BLL.Services
             
             return isUpdated;
         }
+
+        public async Task<IEnumerable<TaskEntity>?> GetTaskByPerson(int personId)
+        {
+            PersonEntity? person = await _personRepository.GetById(personId);
+            if (person is null) return null;
+
+            IEnumerable<TaskEntity> tasks = await _taskRepository.GetTaskByPerson(personId);
+            return tasks;
+        }
+
     }
 }
