@@ -12,10 +12,12 @@ namespace Task_EF_Three_Tier.API.Controllers
     public class TaskController : ControllerBase
     {
         private readonly ITaskRepository _taskRepository;
+        private readonly IPersonRepository _personRepository;
 
-        public TaskController(ITaskRepository taskRepository)
+        public TaskController(ITaskRepository taskRepository, IPersonRepository personRepository)
         {
             _taskRepository = taskRepository;
+            _personRepository = personRepository;
         }
 
         [HttpGet]
@@ -60,5 +62,15 @@ namespace Task_EF_Three_Tier.API.Controllers
             bool isDeleted = await _taskRepository.Delete(id);
             return (isDeleted) ? NoContent() : BadRequest();
         }
+
+        [HttpGet("{taskId:int}/person")]
+        public async Task<ActionResult<IEnumerable<PersonDTO>>> GetPersonByTask(int taskId) {
+        
+            IEnumerable<PersonDTO>? people = await _personRepository.GetPersonByTask(taskId).ContinueWith(p => p.Result?.Select(p => p.ToPersonDTO()));
+            if (people is null) return BadRequest(); 
+
+            return (people.Count() > 0) ? Ok(people) : NoContent();
+        }
+
     }
 }

@@ -44,8 +44,12 @@ namespace Task_API_EF_Three_Tier.DAL.Services
             Method.UpdateEntity(oldEntity, entity, "FirstName", "LastName");
             int updatedRow = await _dc.SaveChangesAsync();
             return (updatedRow == 1) ? true : false;
+        }
 
-
+        public async Task<IEnumerable<PersonEntity>> GetPersonByTask(int taskId)
+        {
+            IEnumerable<PersonEntity> people = await _dc.People.Join(_dc.TaskPerson, p => p.PersonId, tp => tp.PersonId, (p , tp) => new {p , tp}).Where(j => j.tp.TaskId == taskId).Select(j => j.tp.Person).ToListAsync();
+            return people;
         }
     }
 }

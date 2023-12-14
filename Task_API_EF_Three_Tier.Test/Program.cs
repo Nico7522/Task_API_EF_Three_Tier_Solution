@@ -3,6 +3,7 @@ using PersonServiceBLL = Task_API_EF_Three_Tier.BLL.Services;
 using IPersonRepositoryDAL = Task_API_EF_Three_Tier.DAL.Interfaces;
 using PersonServiceDAL = Task_API_EF_Three_Tier.DAL.Services;
 using Task_API_EF_Three_Tier.DAL.Entities;
+using Task_API_EF_Three_Tier.DAL.Domain;
 
 Console.WriteLine("cc");
 
@@ -94,5 +95,16 @@ TaskEntity task = new TaskEntity()
 //bool isDeleted = await _personRepositoryBLL.Delete(46);
 
 //Console.WriteLine(isDeleted);
+
+#endregion
+
+#region GetPersonByTask BLL
+
+//IEnumerable<PersonEntity> people = await _personRepositoryBLL.GetPersonByTask(2);
+
+//foreach (var person in people)
+//{
+//    Console.WriteLine(person.FirstName + " " + person.LastName);
+//}
 
 #endregion

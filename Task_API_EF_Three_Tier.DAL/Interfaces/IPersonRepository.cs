@@ -9,5 +9,6 @@ namespace Task_API_EF_Three_Tier.DAL.Interfaces
 {
     public interface IPersonRepository : ICrudRepository<int, PersonEntity>
     {
+        Task<IEnumerable<PersonEntity>> GetPersonByTask(int taskId);
     }
 }
