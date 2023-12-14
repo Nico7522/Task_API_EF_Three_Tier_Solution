@@ -69,5 +69,16 @@ namespace Task_API_EF_Three_Tier.BLL.Services
             return tasks;
         }
 
+        public async Task<bool> ChangeStatus(int id)
+        {
+          TaskEntity? task = await _taskRepository.GetById(id);
+          if (task is null) return false;
+
+            bool newStatus = !task.IsCompleted;
+            bool isUpdated = await _taskRepository.ChangeStatus(task, newStatus);
+            return isUpdated;
+
+
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace Task_API_EF_Three_Tier.DAL.Interfaces
     public interface ITaskRepository : ICrudRepository<int, TaskEntity>
     {
         Task<IEnumerable<TaskEntity>> GetTaskByPerson(int personId);
+        Task<bool> ChangeStatus(TaskEntity task, bool newStatus);
     }
 }

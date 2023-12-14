@@ -72,5 +72,13 @@ namespace Task_EF_Three_Tier.API.Controllers
             return (people.Count() > 0) ? Ok(people) : NoContent();
         }
 
+        [HttpPatch("{id}/status")]
+
+        public async Task<ActionResult> ChangeStatus(int id)
+        {
+            bool isUpdated = await _taskRepository.ChangeStatus(id);
+            return (isUpdated) ? NoContent() : BadRequest();
+        }
+
     }
 }

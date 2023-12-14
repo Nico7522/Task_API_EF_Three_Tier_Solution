@@ -58,6 +58,11 @@ namespace Task_API_EF_Three_Tier.DAL.Services
            return tasks;
         }
 
-
+        public async Task<bool> ChangeStatus(TaskEntity task, bool newStatus)
+        {
+            task.IsCompleted = newStatus;
+            int entriesNumber = await _dc.SaveChangesAsync();
+            return (entriesNumber > 0) ? true : false;
+        }
     }
 }

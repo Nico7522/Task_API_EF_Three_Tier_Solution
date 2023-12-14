@@ -130,3 +130,10 @@ TaskEntity task = new TaskEntity()
 
 //}
 #endregion
+
+#region ChangeStatus Task BLL
+
+//bool isUpdated = await _taskRepositoryBLL.ChangeStatus(2);
+//Console.WriteLine(isUpdated);
+
+#endregion
