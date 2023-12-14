@@ -12,6 +12,8 @@ namespace Task_API_EF_Three_Tier.DAL.Entities
         public int PersonId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
         public List<TaskPersonEntity> TaskTp { get; set; }
     }
 }

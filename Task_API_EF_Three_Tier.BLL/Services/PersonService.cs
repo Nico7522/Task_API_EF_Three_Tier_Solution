@@ -7,6 +7,7 @@ using Task_API_EF_Three_Tier.BLL.Interfaces;
 using Task_API_EF_Three_Tier.DAL.Entities;
 using ITaskRepositoryDAL =Task_API_EF_Three_Tier.DAL.Interfaces.ITaskRepository;
 using IPersonRepositoryDAL = Task_API_EF_Three_Tier.DAL.Interfaces.IPersonRepository;
+using Task_API_EF_Three_Tier.BLL.Utils;
 
 namespace Task_API_EF_Three_Tier.BLL.Services
 {
@@ -23,6 +24,7 @@ namespace Task_API_EF_Three_Tier.BLL.Services
 
         public async Task<int> Create(PersonEntity entity)
         {
+           entity.EncodePassword();
            int id = await _personRepository.Create(entity);
            return id;
         }

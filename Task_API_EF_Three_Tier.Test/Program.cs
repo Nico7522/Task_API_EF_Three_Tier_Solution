@@ -137,3 +137,36 @@ TaskEntity task = new TaskEntity()
 //Console.WriteLine(isUpdated);
 
 #endregion
+
+#region Test petite méthode hash password
+//string EncodePassword(string password)
+//{
+//    try
+//    {
+//        byte[] encData_byte = new byte[password.Length];
+//        encData_byte = System.Text.Encoding.UTF8.GetBytes(password);
+//        string encodedData = Convert.ToBase64String(encData_byte);
+//        return encodedData;
+//    }
+//    catch (Exception ex)
+//    {
+//        throw new Exception("Error in base64Encode" + ex.Message);
+//    }
+//}
+
+//Console.WriteLine("password : ");
+
+//string psw = Console.ReadLine();
+
+//string rawPsw = EncodePassword(psw);
+
+//Console.WriteLine("password : ");
+//string psw2 = Console.ReadLine();
+
+//string rawPsw2 = EncodePassword(psw2);
+
+//Console.WriteLine(rawPsw == rawPsw2);
+
+#endregion
+
+

@@ -20,7 +20,8 @@ namespace Task_API_EF_Three_Tier.DAL.Utils
                     var value = property.GetValue(newValues);
                     property.SetValue(oldValues, value);
                 }
-            } else
+            }
+            else
             {
                 foreach (var property in propertiesToUpdate)
                 {
@@ -33,5 +34,6 @@ namespace Task_API_EF_Three_Tier.DAL.Utils
                 }
             }
         }
+       
     }
 }
