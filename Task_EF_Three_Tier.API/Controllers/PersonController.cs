@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Task_API_EF_Three_Tier.BLL.Interfaces;
-using Task_API_EF_Three_Tier.DAL.Entities;
 using Task_EF_Three_Tier.API.Mappers;
 using Task_EF_Three_Tier.API.Models.DTO;
 using Task_EF_Three_Tier.API.Models.Forms;

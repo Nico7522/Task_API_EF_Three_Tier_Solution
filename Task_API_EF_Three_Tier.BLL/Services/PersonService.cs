@@ -8,6 +8,7 @@ using Task_API_EF_Three_Tier.DAL.Entities;
 using ITaskRepositoryDAL =Task_API_EF_Three_Tier.DAL.Interfaces.ITaskRepository;
 using IPersonRepositoryDAL = Task_API_EF_Three_Tier.DAL.Interfaces.IPersonRepository;
 using Task_API_EF_Three_Tier.BLL.Utils;
+using System.IO;
 
 namespace Task_API_EF_Three_Tier.BLL.Services
 {
@@ -81,8 +82,8 @@ namespace Task_API_EF_Three_Tier.BLL.Services
         {
            PersonEntity? person = await _personRepository.GetById(id);
            if (person is null) return false;
-
-           bool isModified = await _personRepository.UpdateAvatar(person, imageName);
+         
+            bool isModified = await _personRepository.UpdateAvatar(person, imageName);
 
            return isModified;
         }

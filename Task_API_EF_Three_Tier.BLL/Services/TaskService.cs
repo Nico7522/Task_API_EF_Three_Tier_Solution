@@ -80,5 +80,11 @@ namespace Task_API_EF_Three_Tier.BLL.Services
 
 
         }
+
+        public async Task<bool> AssignPerson(int[] personId, int taskId)
+        {
+           bool isInserted = await _taskRepository.AssignPerson(personId, taskId);
+           return isInserted;
+        }
     }
 }

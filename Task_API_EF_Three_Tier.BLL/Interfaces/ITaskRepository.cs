@@ -20,5 +20,7 @@ namespace Task_API_EF_Three_Tier.BLL.Interfaces
         Task<IEnumerable<TaskEntity>?> GetTaskByPerson(int personId);
 
         Task<bool> ChangeStatus(int id);
+
+        Task<bool> AssignPerson(int[] personId, int taskId);
     }
 }

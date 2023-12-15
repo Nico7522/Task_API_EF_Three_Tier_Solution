@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,6 +66,29 @@ namespace Task_API_EF_Three_Tier.DAL.Services
             task.IsCompleted = newStatus;
             int entriesNumber = await _dc.SaveChangesAsync();
             return (entriesNumber > 0) ? true : false;
+        }
+
+        public async Task<bool> AssignPerson(int[] personId, int taskId)
+        {
+            try
+            {
+                foreach (var id in personId)
+                {
+                    EntityEntry<TaskPersonEntity> t = _dc.TaskPerson.Add(new TaskPersonEntity()
+                    {
+                        PersonId = id,
+                        TaskId = taskId
+                    });
+                }
+
+                await _dc.SaveChangesAsync();
+                return true;
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

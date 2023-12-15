@@ -11,5 +11,7 @@ namespace Task_API_EF_Three_Tier.DAL.Interfaces
     {
         Task<IEnumerable<TaskEntity>> GetTaskByPerson(int personId);
         Task<bool> ChangeStatus(TaskEntity task, bool newStatus);
+
+        Task<bool> AssignPerson(int[] personId, int taskId);
     }
 }

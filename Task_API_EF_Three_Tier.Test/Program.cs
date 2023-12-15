@@ -193,3 +193,20 @@ TaskEntity task = new TaskEntity()
 #endregion
 
 
+#region AssignPerson BLL
+
+//int[] personId = new int[] { 6, 7, 8 };
+
+//bool isInserted = await _taskRepositoryBLL.AssignPerson(personId, 2);
+
+//if (isInserted)
+//{
+//    Console.WriteLine("OK");
+//} else
+//{
+//    Console.WriteLine("Erreur");
+//}
+
+#endregion
+
+
