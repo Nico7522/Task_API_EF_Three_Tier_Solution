@@ -64,5 +64,11 @@ namespace Task_API_EF_Three_Tier.DAL.Services
             int modifiedEntries = await _dc.SaveChangesAsync();
             return modifiedEntries == 1;
         }
+
+        public async Task<PersonEntity?> Login(string email, string password)
+        {
+            PersonEntity? person = await _dc.People.Where(p => p.Email == email && p.Password == password).SingleOrDefaultAsync();
+            return person;
+        }
     }
 }

@@ -22,5 +22,8 @@ namespace Task_API_EF_Three_Tier.BLL.Interfaces
         Task<PersonEntity?> GetPersonByEmail(string email);
 
         Task<bool> UpdateAvatar(int id, string imageName);
+
+        Task<PersonEntity?> Login(string email, string password);
+     
     }
 }

@@ -209,4 +209,19 @@ TaskEntity task = new TaskEntity()
 
 #endregion
 
+#region Login BLL
+
+//PersonEntity? person = await _personRepositoryBLL.Login("dqsdqd", "dqdqd");
+
+//if (person != null)
+//{
+//    Console.WriteLine("OK");
+//}
+//else
+//{
+//    Console.WriteLine("Erreur");
+//}
+
+#endregion
+
 

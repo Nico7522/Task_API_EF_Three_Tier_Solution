@@ -88,6 +88,15 @@ namespace Task_EF_Three_Tier.API.Controllers
             }
         }
 
+        [HttpPost("login")]
+        public async Task<ActionResult<PersonDTO?>> Login(LoginForm form)
+        {
+           PersonDTO? person = await _personRepository.Login(form.Email, form.Password).ContinueWith(p => p.Result?.ToPersonDTO());
+
+            return (person is null) ? NotFound() : Ok(person);
+        }
+    
+
 
     }
 }

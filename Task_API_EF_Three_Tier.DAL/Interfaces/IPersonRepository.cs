@@ -14,5 +14,7 @@ namespace Task_API_EF_Three_Tier.DAL.Interfaces
         Task<PersonEntity?> GetPersonByEmail(string email);
 
         Task<bool> UpdateAvatar(PersonEntity person, string imageName);
+
+        Task<PersonEntity?> Login (string email, string password);
     }
 }

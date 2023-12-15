@@ -90,5 +90,12 @@ namespace Task_API_EF_Three_Tier.BLL.Services
 
            return isModified;
         }
+
+        public async Task<PersonEntity?> Login(string email, string password)
+        {
+           string encodedPassword = Method.EncodePassword(password);
+           PersonEntity? person = await _personRepository.Login(email, encodedPassword);
+           return person;
+        }
     }
 }
