@@ -80,5 +80,15 @@ namespace Task_EF_Three_Tier.API.Controllers
             return (isUpdated) ? NoContent() : BadRequest();
         }
 
+        [HttpPost("{taskId:int}/assign")]
+
+        public async Task<ActionResult> AssignPerson(int[] personId, int taskId)
+        {
+            
+            bool isInserted = await _taskRepository.AssignPerson(personId, taskId);
+
+            return (isInserted) ? NoContent() : BadRequest();
+        }
+
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Net.Http.Headers;
 using Task_API_EF_Three_Tier.BLL.Interfaces;
 using Task_EF_Three_Tier.API.Mappers;
 using Task_EF_Three_Tier.API.Models.DTO;
@@ -70,13 +72,13 @@ namespace Task_EF_Three_Tier.API.Controllers
         {
             try
             {
+                bool isUpdated = await _personRepository.UpdateAvatar(id, fileModel.File.FileName);
                 string path = Path.Combine(fileModel.Directory, fileModel.File.FileName);
                 using (Stream stream = new FileStream(path, FileMode.Create))
                 {
                     fileModel.File.CopyTo(stream);
                 }
 
-                bool isUpdated = await _personRepository.UpdateAvatar(id, fileModel.File.FileName);
                 return (isUpdated) ? NoContent() : BadRequest();
             }
             catch (Exception)

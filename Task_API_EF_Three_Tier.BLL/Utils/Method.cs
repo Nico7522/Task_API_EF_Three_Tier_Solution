@@ -31,5 +31,19 @@ namespace Task_API_EF_Three_Tier.BLL.Utils
             return person.Password;
         
         }
+
+        internal static bool VerifyExtension(string fileName)
+        {
+            string extension = fileName.Substring(fileName.Length - 3);
+            bool isAuthorized = false;
+            string[] authorizedExtensions = new string[] { "jpg", "png" };
+
+            foreach (var ext in authorizedExtensions)
+            {
+                if (ext == extension) isAuthorized = true;
+            }
+            Console.WriteLine(isAuthorized);
+            return isAuthorized;
+        }
     }
 }

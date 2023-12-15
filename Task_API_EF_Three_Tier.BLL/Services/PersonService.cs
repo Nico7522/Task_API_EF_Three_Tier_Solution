@@ -80,6 +80,9 @@ namespace Task_API_EF_Three_Tier.BLL.Services
 
         public async Task<bool> UpdateAvatar(int id, string imageName)
         {
+           if (!Method.VerifyExtension(imageName))
+               throw new Exception("Bad file format");
+
            PersonEntity? person = await _personRepository.GetById(id);
            if (person is null) return false;
          
