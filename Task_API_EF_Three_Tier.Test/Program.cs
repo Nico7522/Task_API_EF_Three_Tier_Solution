@@ -185,3 +185,11 @@ TaskEntity task = new TaskEntity()
 #endregion
 
 
+#region UpdateAvatar BLL
+
+//bool isUpdated = await _personRepositoryBLL.UpdateAvatar(6, "dd");
+//if (isUpdated) Console.WriteLine("ok");
+
+#endregion
+
+

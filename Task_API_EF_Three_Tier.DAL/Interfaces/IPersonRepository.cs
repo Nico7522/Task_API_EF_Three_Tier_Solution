@@ -12,5 +12,7 @@ namespace Task_API_EF_Three_Tier.DAL.Interfaces
         Task<IEnumerable<PersonEntity>> GetPersonByTask(int taskId);
 
         Task<PersonEntity?> GetPersonByEmail(string email);
+
+        Task<bool> UpdateAvatar(PersonEntity person, string imageName);
     }
 }

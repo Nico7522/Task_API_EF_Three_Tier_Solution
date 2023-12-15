@@ -57,5 +57,12 @@ namespace Task_API_EF_Three_Tier.DAL.Services
             PersonEntity? person = await _dc.People.Where(p => p.Email == email).SingleOrDefaultAsync();
             return person;
         }
+
+        public async Task<bool> UpdateAvatar(PersonEntity person, string imageName)
+        {
+            person.ImgUrl = imageName;
+            int modifiedEntries = await _dc.SaveChangesAsync();
+            return modifiedEntries == 1;
+        }
     }
 }

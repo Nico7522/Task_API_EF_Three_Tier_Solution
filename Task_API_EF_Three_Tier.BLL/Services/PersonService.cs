@@ -76,5 +76,15 @@ namespace Task_API_EF_Three_Tier.BLL.Services
             PersonEntity? person = await _personRepository.GetPersonByEmail(email);
             return person;
         }
+
+        public async Task<bool> UpdateAvatar(int id, string imageName)
+        {
+           PersonEntity? person = await _personRepository.GetById(id);
+           if (person is null) return false;
+
+           bool isModified = await _personRepository.UpdateAvatar(person, imageName);
+
+           return isModified;
+        }
     }
 }

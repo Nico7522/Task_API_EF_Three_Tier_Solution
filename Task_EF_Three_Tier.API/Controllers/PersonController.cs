@@ -66,6 +66,27 @@ namespace Task_EF_Three_Tier.API.Controllers
             return (tasks.Count() > 0) ? Ok(tasks) : NoContent();
         }
 
+        [HttpPatch("{id:int}/avatar")]
+        public async Task<ActionResult> UpdateAvatar(int id, [FromForm] FileForm fileModel)
+        {
+            try
+            {
+                string path = Path.Combine(fileModel.Directory, fileModel.File.FileName);
+                using (Stream stream = new FileStream(path, FileMode.Create))
+                {
+                    fileModel.File.CopyTo(stream);
+                }
+
+                bool isUpdated = await _personRepository.UpdateAvatar(id, fileModel.File.FileName);
+                return (isUpdated) ? NoContent() : BadRequest();
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+        }
+
 
     }
 }
