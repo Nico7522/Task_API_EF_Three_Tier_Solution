@@ -42,7 +42,6 @@ namespace Task_API_EF_Three_Tier.BLL.Utils
             {
                 if (ext == extension) isAuthorized = true;
             }
-            Console.WriteLine(isAuthorized);
             return isAuthorized;
         }
     }
