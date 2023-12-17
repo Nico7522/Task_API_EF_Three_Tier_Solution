@@ -103,7 +103,7 @@ namespace Task_EF_Three_Tier.API.Controllers
            PersonDTO? person = await _personRepository.Login(form.Email, form.Password).ContinueWith(p => p.Result?.ToPersonDTO());
             if (person is null) return NotFound();
 
-           TokenResponse? token = Method.GenerateToken(_configuration);
+           TokenResponse? token = Method.GenerateToken(_configuration, person.FirstName);
             if(token is not null)
                 Method.GenerateCookie(Response, "token", token.Token );
 

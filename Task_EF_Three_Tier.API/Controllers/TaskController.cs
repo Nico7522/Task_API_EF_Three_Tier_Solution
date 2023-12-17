@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Task_API_EF_Three_Tier.BLL.Interfaces;
 using Task_EF_Three_Tier.API.Mappers;
@@ -38,6 +39,8 @@ namespace Task_EF_Three_Tier.API.Controllers
             return Ok(task);
         }
 
+
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> Create(CreateTaskForm form) {
 
