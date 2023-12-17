@@ -17,7 +17,7 @@ namespace Task_EF_Three_Tier.API.Utils
               config["Jwt:Issuer"],
               claims: (userName is null) ? null : new List<Claim>() { new Claim("name", userName)},
               expires: DateTime.Now.AddMinutes(120),
-              signingCredentials: credentials) ; ;
+              signingCredentials: credentials); 
 
             string token = new JwtSecurityTokenHandler().WriteToken(Sectoken);
 
