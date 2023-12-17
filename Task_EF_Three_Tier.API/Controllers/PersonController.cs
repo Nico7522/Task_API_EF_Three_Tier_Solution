@@ -1,11 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 using Task_API_EF_Three_Tier.BLL.Interfaces;
 using Task_EF_Three_Tier.API.Mappers;
+using Task_EF_Three_Tier.API.Models;
 using Task_EF_Three_Tier.API.Models.DTO;
 using Task_EF_Three_Tier.API.Models.Forms;
+using Task_EF_Three_Tier.API.Utils;
 
 namespace Task_EF_Three_Tier.API.Controllers
 {
@@ -15,10 +20,12 @@ namespace Task_EF_Three_Tier.API.Controllers
     {
         private readonly IPersonRepository _personRepository;
         private readonly ITaskRepository _taskRepository;
-        public PersonController(IPersonRepository personRepository, ITaskRepository taskRepository)
+        private IConfiguration _configuration;
+        public PersonController(IPersonRepository personRepository, ITaskRepository taskRepository, IConfiguration configuration)
         {
             _personRepository = personRepository;
             _taskRepository = taskRepository;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -38,6 +45,8 @@ namespace Task_EF_Three_Tier.API.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(CreatePersonForm form)
         {
+           
+            
             int id = await _personRepository.Create(form.ToPersonEntity());
             return (id > 0) ? Created($"https://localhost:7238/api/Person/{id}", form) : BadRequest();
         }
@@ -89,11 +98,16 @@ namespace Task_EF_Three_Tier.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<PersonDTO?>> Login(LoginForm form)
+        public async Task<ActionResult<PersonDTO?>> Login([FromBody] LoginForm form)
         {
            PersonDTO? person = await _personRepository.Login(form.Email, form.Password).ContinueWith(p => p.Result?.ToPersonDTO());
+            if (person is null) return NotFound();
 
-            return (person is null) ? NotFound() : Ok(person);
+           TokenResponse? token = Method.GenerateToken(_configuration);
+            if(token is not null)
+                Method.GenerateCookie(Response, "token", token.Token );
+
+            return Ok(token);
         }
     
 
