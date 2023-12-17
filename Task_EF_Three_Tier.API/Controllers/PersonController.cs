@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Task_API_EF_Three_Tier.BLL.Interfaces;
@@ -48,7 +49,12 @@ namespace Task_EF_Three_Tier.API.Controllers
            
             
             int id = await _personRepository.Create(form.ToPersonEntity());
-            return (id > 0) ? Created($"https://localhost:7238/api/Person/{id}", form) : BadRequest();
+            if (id < 1) return BadRequest();
+
+            TokenResponse? token = Method.GenerateToken(_configuration, form.FirstName);
+            if (token is not null)
+                Method.GenerateCookie(Response, "token", token.Token);
+            return (id > 0) ? Created($"https://localhost:7238/api/Person/{id}", token) : BadRequest();
         }
 
         [HttpPut("{id:int}")]
