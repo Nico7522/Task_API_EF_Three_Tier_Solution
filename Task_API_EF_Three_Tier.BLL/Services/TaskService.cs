@@ -21,10 +21,10 @@ namespace Task_API_EF_Three_Tier.BLL.Services
             _personRepository = personRepository;
         }
 
-        public async Task<int> Create(TaskEntity entity)
+        public async Task<TaskEntity> Create(TaskEntity entity)
         {
-           int id = await _taskRepository.Create(entity);
-            return id;
+           TaskEntity newTask = await _taskRepository.Create(entity);
+            return newTask;
         }
 
         public async Task<bool> Delete(int id)

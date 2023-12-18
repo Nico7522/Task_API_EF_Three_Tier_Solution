@@ -8,7 +8,7 @@ namespace Task_API_EF_Three_Tier.DAL.Interfaces
 {
     public interface ICrudRepository<TKey, TEntity> : IReadRepository<TKey, TEntity>
     {
-        Task<int> Create(TEntity entity);
+        Task<TEntity> Create(TEntity entity);
 
         Task<bool> Update(TEntity oldEntity, TEntity entity);
 

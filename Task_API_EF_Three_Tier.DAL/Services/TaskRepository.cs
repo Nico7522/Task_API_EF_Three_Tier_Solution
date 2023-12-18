@@ -17,12 +17,12 @@ namespace Task_API_EF_Three_Tier.DAL.Services
     public class TaskRepository : ITaskRepository
     {
         private readonly DataContext _dc = new DataContext();
-        public async Task<int> Create(TaskEntity entity)
+        public async Task<TaskEntity> Create(TaskEntity entity)
         {
             _dc.Add(entity);
             await _dc.SaveChangesAsync();
-            int id = entity.TaskId;
-            return id;
+            TaskEntity newTask = entity;
+            return newTask;
         }
 
         public async Task<bool> Delete(TaskEntity task)

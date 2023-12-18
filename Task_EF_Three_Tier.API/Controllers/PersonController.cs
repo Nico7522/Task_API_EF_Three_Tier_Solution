@@ -7,6 +7,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Task_API_EF_Three_Tier.BLL.Interfaces;
+using Task_API_EF_Three_Tier.DAL.Entities;
 using Task_EF_Three_Tier.API.Mappers;
 using Task_EF_Three_Tier.API.Models;
 using Task_EF_Three_Tier.API.Models.DTO;
@@ -47,13 +48,14 @@ namespace Task_EF_Three_Tier.API.Controllers
         public async Task<ActionResult> Create(CreatePersonForm form)
         {
             
-            int id = await _personRepository.Create(form.ToPersonEntity());
-            if (id < 1) return BadRequest();
+            PersonEntity person = await _personRepository.Create(form.ToPersonEntity());
+            if (person is null) return BadRequest();
 
             TokenResponse? token = Method.GenerateToken(_configuration, form.ToPersonEntity().ToPersonDTO());
             if (token is not null)
                 Method.GenerateCookie(Response, "token", token.Token);
-            return (id > 0) ? Created($"https://localhost:7238/api/Person/{id}", token) : BadRequest();
+
+           return Created($"https://localhost:7238/api/Person/{person.PersonId}", token);
         }
 
         [HttpPut("{id:int}")]

@@ -23,14 +23,14 @@ namespace Task_API_EF_Three_Tier.BLL.Services
             _taskRepository = taskRepository;
         }
 
-        public async Task<int> Create(PersonEntity entity)
+        public async Task<PersonEntity> Create(PersonEntity entity)
         {
            PersonEntity? person = await _personRepository.GetPersonByEmail(entity.Email);
-           if (person is not null) return 0;
+           if (person is not null) return null;
 
            entity.EncodePassword();
-           int id = await _personRepository.Create(entity);
-           return id;
+           PersonEntity personEntity = await _personRepository.Create(entity);
+           return personEntity;
         }
 
         public async Task<bool> Delete(int id)

@@ -12,7 +12,7 @@ namespace Task_API_EF_Three_Tier.BLL.Interfaces
         Task<IEnumerable<TaskEntity>?> GetAll();
         Task<TaskEntity?> GetById(int id);
 
-        Task<int> Create(TaskEntity entity);
+        Task<TaskEntity> Create(TaskEntity entity);
 
         Task<bool> Update(int id, TaskEntity entity);
 

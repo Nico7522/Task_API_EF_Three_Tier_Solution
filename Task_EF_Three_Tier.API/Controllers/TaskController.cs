@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Task_API_EF_Three_Tier.BLL.Interfaces;
+using Task_API_EF_Three_Tier.DAL.Entities;
 using Task_EF_Three_Tier.API.Mappers;
 using Task_EF_Three_Tier.API.Models;
 using Task_EF_Three_Tier.API.Models.DTO;
@@ -47,11 +48,11 @@ namespace Task_EF_Three_Tier.API.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(CreateTaskForm form) {
            
-           int id = await _taskRepository.Create(form.ToTaskEntity());
+           TaskEntity newTask = await _taskRepository.Create(form.ToTaskEntity());
 
-            if (id < 0) return BadRequest();
+            if (newTask is null) return BadRequest();
 
-            return Created($"https://localhost:7238/api/Task/{id}", form);
+            return Created($"https://localhost:7238/api/Task/{newTask.TaskId}", form);
         }
 
         [HttpPut("{id:int}")]

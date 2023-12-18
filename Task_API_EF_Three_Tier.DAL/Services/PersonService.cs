@@ -14,12 +14,12 @@ namespace Task_API_EF_Three_Tier.DAL.Services
     public class PersonService : IPersonRepository
     {
         private readonly DataContext _dc = new DataContext();
-        public async Task<int> Create(PersonEntity entity)
+        public async Task<PersonEntity> Create(PersonEntity entity)
         {
             _dc.People.Add(entity);
             await _dc.SaveChangesAsync();
-            int id = entity.PersonId;
-            return id;
+            PersonEntity newPerson = entity;
+            return newPerson;
         }
 
         public async Task<bool> Delete(PersonEntity entity)
