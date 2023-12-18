@@ -20,6 +20,7 @@ namespace Task_API_EF_Three_Tier.DAL.Configs
             builder.Property(p => p.Email).IsRequired();
             builder.Property(p => p.Password).IsRequired();
             builder.Property(p => p.ImgUrl).HasDefaultValue("/avatardefault.png");
+            builder.Property(p => p.Role).HasDefaultValue("user");
         }
     }
 }

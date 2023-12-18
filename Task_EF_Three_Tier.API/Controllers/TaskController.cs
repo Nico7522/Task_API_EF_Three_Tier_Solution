@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Task_API_EF_Three_Tier.BLL.Interfaces;
 using Task_EF_Three_Tier.API.Mappers;
+using Task_EF_Three_Tier.API.Models;
 using Task_EF_Three_Tier.API.Models.DTO;
 using Task_EF_Three_Tier.API.Models.Forms;
 
@@ -14,11 +15,13 @@ namespace Task_EF_Three_Tier.API.Controllers
     {
         private readonly ITaskRepository _taskRepository;
         private readonly IPersonRepository _personRepository;
+        private readonly ILogger<TaskController> _logger;
 
-        public TaskController(ITaskRepository taskRepository, IPersonRepository personRepository)
+        public TaskController(ITaskRepository taskRepository, IPersonRepository personRepository, ILogger<TaskController> logger)
         {
             _taskRepository = taskRepository;
             _personRepository = personRepository;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -40,10 +43,10 @@ namespace Task_EF_Three_Tier.API.Controllers
         }
 
 
-        [Authorize]
+        [Authorize("adminPolicy")]
         [HttpPost]
         public async Task<ActionResult> Create(CreateTaskForm form) {
-
+           
            int id = await _taskRepository.Create(form.ToTaskEntity());
 
             if (id < 0) return BadRequest();

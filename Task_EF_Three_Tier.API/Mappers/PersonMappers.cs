@@ -32,6 +32,7 @@ namespace Task_EF_Three_Tier.API.Mappers
                 PersonId = entity.PersonId,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
+                Role = entity.Role,
             };
         }
 

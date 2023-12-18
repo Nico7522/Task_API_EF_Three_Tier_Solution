@@ -34,8 +34,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
      };
  });
 
-// Add services to the container.
 
+// Add services to the container.
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("adminPolicy", policy => policy.RequireRole("Administrator")); //Lire la valeur du claim Role dans le token
+    options.AddPolicy("modoPolicy", policy => policy.RequireRole("Modo", "Admin")); // multiple role
+    options.AddPolicy("connectedPolicy", policy => policy.RequireAuthenticatedUser()); //Vérifier que le token est bien valide
+});
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -67,6 +73,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 

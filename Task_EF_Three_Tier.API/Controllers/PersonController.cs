@@ -46,12 +46,11 @@ namespace Task_EF_Three_Tier.API.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(CreatePersonForm form)
         {
-           
             
             int id = await _personRepository.Create(form.ToPersonEntity());
             if (id < 1) return BadRequest();
 
-            TokenResponse? token = Method.GenerateToken(_configuration, form.FirstName);
+            TokenResponse? token = Method.GenerateToken(_configuration, form.ToPersonEntity().ToPersonDTO());
             if (token is not null)
                 Method.GenerateCookie(Response, "token", token.Token);
             return (id > 0) ? Created($"https://localhost:7238/api/Person/{id}", token) : BadRequest();
@@ -109,7 +108,7 @@ namespace Task_EF_Three_Tier.API.Controllers
            PersonDTO? person = await _personRepository.Login(form.Email, form.Password).ContinueWith(p => p.Result?.ToPersonDTO());
             if (person is null) return NotFound();
 
-           TokenResponse? token = Method.GenerateToken(_configuration, person.FirstName);
+           TokenResponse? token = Method.GenerateToken(_configuration, person);
             if(token is not null)
                 Method.GenerateCookie(Response, "token", token.Token );
 
