@@ -52,11 +52,11 @@ namespace Task_EF_Three_Tier.API.Controllers
             PersonEntity person = await _personRepository.Create(form.ToPersonEntity());
             if (person is null) return BadRequest();
 
-            AuthResponse token = Method.GenerateToken(_configuration, person.ToPersonDTO());
-            if (token is not null)
-                Method.GenerateCookie(Response, "token", token.Token);
+            AuthResponse response = Method.GenerateToken(_configuration, person.ToPersonDTO());
+            if (response is not null)
+                Method.GenerateCookie(Response, "token", response.Token);
 
-           return Created($"https://localhost:7238/api/Person/{person.PersonId}", token);
+           return Created($"https://localhost:7238/api/Person/{person.PersonId}", response);
         }
 
         [HttpPut("{id:int}")]
@@ -116,11 +116,11 @@ namespace Task_EF_Three_Tier.API.Controllers
            PersonDTO? person = await _personRepository.Login(form.Email, form.Password).ContinueWith(p => p.Result?.ToPersonDTO());
             if (person is null) return NotFound();
 
-           AuthResponse? token = Method.GenerateToken(_configuration, person);
-            if(token is not null)
-                Method.GenerateCookie(Response, "token", token.Token );
+           AuthResponse? response = Method.GenerateToken(_configuration, person);
+            if(response is not null)
+                Method.GenerateCookie(Response, "token", response.Token );
 
-            return Ok(token);
+            return Ok(response);
         }
     
 
