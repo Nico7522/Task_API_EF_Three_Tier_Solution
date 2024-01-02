@@ -2,8 +2,9 @@
 {
     public class FileForm
     {
+        #nullable disable
         public string Directory { get; private set; } 
-        public IFormFile? File { get; set; }
+        public IFormFile File { get; set; }
 
         public FileForm()
         {

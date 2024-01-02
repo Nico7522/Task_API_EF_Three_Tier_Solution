@@ -45,13 +45,14 @@ namespace Task_EF_Three_Tier.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(CreatePersonForm form)
+        public async Task<ActionResult<AuthResponse>> Create(CreatePersonForm form)
         {
+            if (!ModelState.IsValid) return BadRequest();
             
             PersonEntity person = await _personRepository.Create(form.ToPersonEntity());
             if (person is null) return BadRequest();
 
-            TokenResponse? token = Method.GenerateToken(_configuration, form.ToPersonEntity().ToPersonDTO());
+            AuthResponse token = Method.GenerateToken(_configuration, person.ToPersonDTO());
             if (token is not null)
                 Method.GenerateCookie(Response, "token", token.Token);
 
@@ -86,6 +87,8 @@ namespace Task_EF_Three_Tier.API.Controllers
         [HttpPatch("{id:int}/avatar")]
         public async Task<ActionResult> UpdateAvatar(int id, [FromForm] FileForm fileModel)
         {
+            if(fileModel is null ) return BadRequest();
+
             try
             {
                 bool isUpdated = await _personRepository.UpdateAvatar(id, fileModel.File.FileName);
@@ -105,12 +108,15 @@ namespace Task_EF_Three_Tier.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<PersonDTO?>> Login([FromBody] LoginForm form)
+        public async Task<ActionResult<AuthResponse>> Login([FromBody] LoginForm form)
         {
+            if(!ModelState.IsValid) return BadRequest();
+
+
            PersonDTO? person = await _personRepository.Login(form.Email, form.Password).ContinueWith(p => p.Result?.ToPersonDTO());
             if (person is null) return NotFound();
 
-           TokenResponse? token = Method.GenerateToken(_configuration, person);
+           AuthResponse? token = Method.GenerateToken(_configuration, person);
             if(token is not null)
                 Method.GenerateCookie(Response, "token", token.Token );
 

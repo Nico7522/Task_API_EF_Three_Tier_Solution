@@ -10,20 +10,23 @@ namespace Task_EF_Three_Tier.API.Utils
 {
     public static class Method
     {
-        public static TokenResponse GenerateToken(IConfiguration config, PersonDTO? person)
+        public static AuthResponse GenerateToken(IConfiguration config, PersonDTO person)
         {
+            if (person is null) return null;
+
+
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var Sectoken = new JwtSecurityToken(config["Jwt:Issuer"],
               config["Jwt:Issuer"],
-              claims: (person is null) ? null : new List<Claim>() { new Claim("name", person.LastName), new Claim(ClaimTypes.Role, person.Role)},
+              claims: new List<Claim>() { new Claim("name", person.LastName), new Claim(ClaimTypes.Role, person.Role)},
               expires: DateTime.Now.AddMinutes(120),
               signingCredentials: credentials); 
 
             string token = new JwtSecurityTokenHandler().WriteToken(Sectoken);
 
-            return new TokenResponse(token);
+            return new AuthResponse(token, person);
         }
 
         public static void GenerateCookie(HttpResponse response, string? key, string? value)

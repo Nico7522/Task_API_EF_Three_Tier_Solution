@@ -11,7 +11,7 @@ namespace Task_API_EF_Three_Tier.DAL.Domain
 {
     public class DataContext : DbContext
     {
-        private string _connectionString = "Data Source=DESKTOP-IFNFMI9;Initial Catalog=Task_EF_Three_Tier;Integrated Security=True;Connect Timeout=60;Encrypt=True;Trust Server Certificate=True;";
+        private string _connectionString = "Data Source=GOS-VDI202\\TFTIC;Initial Catalog=Task_API_DB;Integrated Security=True;Connect Timeout=60;Encrypt=False;";
 
         public DbSet<TaskEntity> Tasks { get; set; }
         public DbSet<PersonEntity> People { get; set; }

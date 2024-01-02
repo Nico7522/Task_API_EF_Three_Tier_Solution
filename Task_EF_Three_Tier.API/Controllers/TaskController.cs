@@ -46,13 +46,13 @@ namespace Task_EF_Three_Tier.API.Controllers
 
         [Authorize("adminPolicy")]
         [HttpPost]
-        public async Task<ActionResult> Create(CreateTaskForm form) {
+        public async Task<ActionResult<TaskDTO>> Create(CreateTaskForm form) {
            
            TaskEntity newTask = await _taskRepository.Create(form.ToTaskEntity());
 
             if (newTask is null) return BadRequest();
 
-            return Created($"https://localhost:7238/api/Task/{newTask.TaskId}", form);
+            return Created($"https://localhost:7238/api/Task/{newTask.TaskId}", newTask.ToTaskDTO());
         }
 
         [HttpPut("{id:int}")]
